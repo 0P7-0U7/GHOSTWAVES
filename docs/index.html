@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GHOSTWAVES | OPT-OUT</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Inter:wght@400;700&display=swap');
+
+        :root {
+            --bg: #ffffff;
+            --fg: #000000;
+            --code-bg: #f4f4f4;
+            --border-color: #000000;
+        }
+
+        body.dark-mode {
+            --bg: #000000;
+            --fg: #ffffff;
+            --code-bg: #1a1a1a;
+            --border-color: #ffffff;
+        }
+
+        body {
+            background-color: var(--bg);
+            color: var(--fg);
+            font-family: 'Inter', sans-serif;
+            line-height: 1.5;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        pre,
+        code {
+            font-family: 'JetBrains Mono', monospace;
+            border-radius: 0 !important;
+        }
+
+        pre {
+            background-color: var(--code-bg);
+            color: var(--fg);
+            padding: 1.5rem;
+            border: 1px solid var(--border-color);
+            overflow-x: auto;
+            transition: background-color 0.3s, border-color 0.3s;
+        }
+
+        .border-sharp {
+            border: 1px solid var(--border-color);
+            transition: border-color 0.3s;
+        }
+
+        /* Sidebar Links */
+        .sidebar-link {
+            display: block;
+            padding: 0.5rem 0;
+            text-decoration: none;
+            color: var(--fg);
+            border-bottom: 1px solid transparent;
+            transition: border-color 0.3s;
+        }
+
+        .sidebar-link:hover {
+            border-bottom: 1px solid var(--fg);
+        }
+
+        /* Tables */
+        table {
+            border-collapse: collapse;
+            width: 100%;
+        }
+
+        th,
+        td {
+            border: 1px solid var(--border-color);
+            padding: 0.75rem;
+            text-align: left;
+            transition: border-color 0.3s;
+        }
+
+        th {
+            background-color: var(--fg);
+            color: var(--bg);
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        /* Headers & Footer Border */
+        h1,
+        h2,
+        h3,
+        h4,
+        footer {
+            border-color: var(--border-color);
+            transition: border-color 0.3s;
+        }
+
+        h1,
+        h2,
+        h3,
+        h4 {
+            font-weight: 700;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Theme Toggling Logic */
+        #sun-icon {
+            display: none;
+        }
+
+        #moon-icon {
+            display: block;
+        }
+
+        body.dark-mode #sun-icon {
+            display: block;
+        }
+
+        body.dark-mode #moon-icon {
+            display: none;
+        }
+
+        /* Invert the black tag in dark mode */
+        body.dark-mode .bg-black {
+            background-color: #ffffff;
+            color: #000000;
+        }
+
+        /* Frame anatomy bar */
+        .frame-seg {
+            padding: 1rem 0.4rem;
+            text-align: center;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            border-right: 1px solid var(--bg);
+            background-color: var(--fg);
+            color: var(--bg);
+            transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+        }
+
+        .frame-seg:last-child {
+            border-right: none;
+        }
+
+        .frame-seg .bytes {
+            display: block;
+            font-size: 0.6rem;
+            opacity: 0.5;
+            margin-top: 0.2rem;
+            font-weight: 400;
+        }
+    </style>
+</head>
+
+<body class="p-6 md:p-12">
+
+    <header class="mb-16 border-b-4 pb-8 border-[var(--border-color)]">
+        <div class="flex justify-between items-center mb-8 flex-wrap gap-8">
+
+            <div class="flex items-center gap-8">
+                <h1 class="text-6xl md:text-8xl leading-none">GHOSTWAVES</h1>
+            </div>
+
+            <div class="text-right flex flex-col items-end gap-6">
+                <button id="theme-toggle"
+                    class="focus:outline-none p-2 border-sharp hover:bg-[var(--fg)] hover:text-[var(--bg)] transition-colors cursor-pointer">
+                    <svg id="sun-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"
+                            d="M12 3v1m0 16v1m9-9h-1M4 12H3m15.364 6.364l-.707-.707M6.343 6.343l-.707-.707m12.728 0l-.707.707M6.343 17.657l-.707.707M12 8a4 4 0 100 8 4 4 0 000-8z" />
+                    </svg>
+                    <svg id="moon-icon" xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none"
+                        viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="square" stroke-linejoin="miter" stroke-width="2"
+                            d="M20.354 15.354A9 9 0 018.646 3.646 9.003 9.003 0 0012 21a9.003 9.003 0 008.354-5.646z" />
+                    </svg>
+                </button>
+                <div>
+                    <p class="font-bold text-xl uppercase tracking-tighter">OPT-OUT</p>
+                    <p class="text-xs uppercase tracking-widest opacity-60">Brussels 2026</p>
+                </div>
+            </div>
+        </div>
+
+        <p class="text-xl uppercase tracking-widest">Bare-Metal 802.11 Frame Injection Library for ESP32</p>
+        <div class="mt-8 flex flex-wrap gap-4 text-sm font-bold uppercase">
+            <span class="border-sharp px-4 py-1">Build v1.1.0</span>
+            <span class="border-sharp px-4 py-1">Custom Frame Types</span>
+            <span class="border-sharp px-4 py-1">Channel Hopping</span>
+            <span class="border-sharp px-4 py-1 bg-black text-white transition-colors">Connectionless</span>
+        </div>
+        <div class="mt-6 flex flex-wrap gap-4 text-sm font-bold uppercase">
+            <a href="https://github.com/0P7-0U7/GHOSTWAVES/releases/latest"
+                class="border-sharp px-6 py-2 hover:bg-[var(--fg)] hover:text-[var(--bg)] transition-colors"
+                target="_blank">Download Latest Release</a>
+            <a href="https://github.com/0P7-0U7/GHOSTWAVES"
+                class="border-sharp px-6 py-2 hover:bg-[var(--fg)] hover:text-[var(--bg)] transition-colors"
+                target="_blank">GitHub</a>
+        </div>
+    </header>
+
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-12">
+
+        <aside class="md:col-span-1">
+            <nav class="sticky top-12 space-y-4 uppercase text-xs font-bold tracking-tighter">
+                <a href="#philosophy" class="sidebar-link">00. What This Is</a>
+                <a href="#architecture" class="sidebar-link">01. Architecture</a>
+                <a href="#frame" class="sidebar-link">02. The Frame</a>
+                <a href="#channels" class="sidebar-link">03. Channels &amp; Frequencies</a>
+                <a href="#api" class="sidebar-link">04. API Reference</a>
+                <a href="#custom-types" class="sidebar-link">05. Custom Frame Types</a>
+                <a href="#limitations" class="sidebar-link">06. Limitations</a>
+                <a href="#versus" class="sidebar-link">07. vs ESP-NOW</a>
+                <a href="#examples" class="sidebar-link">08. Examples</a>
+                <a href="#vision" class="sidebar-link">09. Use Cases &amp; Roadmap</a>
+                <div class="mt-8 pt-4 border-t border-[var(--border-color)]">
+                    <a href="https://github.com/0P7-0U7/GHOSTWAVES/releases/latest"
+                        class="sidebar-link font-bold"
+                        target="_blank">Download</a>
+                    <a href="https://github.com/0P7-0U7/GHOSTWAVES"
+                        class="sidebar-link"
+                        target="_blank">GitHub</a>
+                </div>
+            </nav>
+        </aside>
+
+        <main class="md:col-span-3 space-y-24">
+
+            <!-- 00. WHAT THIS IS -->
+            <section id="philosophy">
+                <h2 class="text-3xl mb-6">00. What This Is</h2>
+                <p class="mb-6 max-w-2xl">
+                    GHOSTWAVES is a thin C++ library that lets you send and receive raw 802.11 frames on ESP32,
+                    bypassing the standard Wi-Fi stack. Instead of connecting to a router, authenticating, getting
+                    an IP, and going through TCP/IP, you construct a frame in memory and hand it directly to the
+                    radio hardware via <code>esp_wifi_80211_tx()</code>.
+                </p>
+                <p class="mb-6 max-w-2xl">
+                    The tradeoff is straightforward: you skip all the overhead (faster, simpler, no infrastructure
+                    needed), but you also lose everything that overhead provides (encryption, reliability,
+                    delivery guarantees, error correction). This is useful for specific scenarios where speed
+                    and simplicity matter more than reliability.
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-0 border-sharp">
+                    <div class="p-8 border-b sm:border-b-0 sm:border-r border-[var(--border-color)]">
+                        <h3 class="text-lg mb-2">No Connection Overhead</h3>
+                        <p class="text-sm">Standard Wi-Fi requires scanning, auth, association, DHCP, and TCP
+                            handshakes before data moves. GHOSTWAVES skips all of that. Construct frame, transmit.
+                            This makes it practical for deep-sleep sensor nodes where wake time matters.</p>
+                    </div>
+                    <div class="p-8 border-b border-[var(--border-color)]">
+                        <h3 class="text-lg mb-2">Not on the Network</h3>
+                        <p class="text-sm">These frames don't go through a router and won't appear on standard network
+                            tools. However, anyone with a monitor-mode adapter on the correct channel can capture them
+                            in plaintext. There is no built-in encryption.</p>
+                    </div>
+                    <div class="p-8 border-b sm:border-b-0 sm:border-r border-[var(--border-color)]">
+                        <h3 class="text-lg mb-2">Flexible Topology</h3>
+                        <p class="text-sm">Without a router, there's no forced star topology. You can do broadcast
+                            (one-to-many), many-to-one collection, or peer-to-peer. The library doesn't enforce any
+                            topology &mdash; it just sends and receives frames.</p>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-lg mb-2">Full Frame Access</h3>
+                        <p class="text-sm">Unlike ESP-NOW (which is a closed binary blob), you control the entire
+                            frame: MAC header, category, OUI, type byte, and payload. This is useful for learning
+                            how 802.11 works at the wire level, and for building custom protocols.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 01. ARCHITECTURE -->
+            <section id="architecture">
+                <h2 class="text-3xl mb-6">01. Architecture</h2>
+                <p class="mb-6 max-w-2xl">
+                    GHOSTWAVES is a C++ library for the Arduino-ESP32 ecosystem. It uses
+                    <code>esp_wifi_80211_tx()</code> for frame injection and promiscuous mode for reception.
+                    The library handles frame construction, OUI filtering, and thread-safe queuing between
+                    the Wi-Fi task and your application loop. Developed by OPT-OUT.
+                </p>
+
+                <div class="mb-12 p-8 border-sharp bg-[var(--code-bg)] overflow-x-auto">
+                    <div
+                        class="min-w-[500px] flex items-center justify-between gap-4 font-mono text-sm font-bold uppercase text-center">
+
+                        <div class="flex flex-col items-center gap-2">
+                            <div
+                                class="border-sharp p-4 bg-[var(--fg)] text-[var(--bg)] shadow-[4px_4px_0_var(--fg)] transition-colors">
+                                NODE A</div>
+                            <div class="text-xs opacity-60">GhostWaves</div>
+                        </div>
+
+                        <div class="flex-grow flex flex-col items-center justify-center opacity-70">
+                            <span>RAW 802.11</span>
+                            <span class="tracking-[0.5em] font-bold">≈≈≈≈≈≈≈></span>
+                            <span class="text-xs opacity-60 mt-1">Action Frames</span>
+                        </div>
+
+                        <div class="flex flex-col gap-6">
+                            <div
+                                class="border-sharp p-3 bg-[var(--bg)] flex justify-between items-center gap-4 relative transition-colors">
+                                <span>NODE B</span>
+                                <span
+                                    class="text-xs border-sharp px-2 py-1 bg-[var(--code-bg)] transition-colors">SENSOR</span>
+                            </div>
+
+                            <div
+                                class="border-sharp p-3 bg-[var(--bg)] flex justify-between items-center gap-4 relative transition-colors">
+                                <span>NODE C</span>
+                                <span
+                                    class="text-xs border-sharp px-2 py-1 bg-[var(--code-bg)] transition-colors">RELAY</span>
+                            </div>
+
+                            <div
+                                class="border-sharp p-3 bg-[var(--bg)] flex justify-between items-center gap-4 relative transition-colors">
+                                <span>NODE N</span>
+                                <span
+                                    class="text-xs border-sharp px-2 py-1 bg-[var(--code-bg)] transition-colors">SWARM</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-0 border-sharp">
+                    <div class="p-8 border-b sm:border-b-0 sm:border-r border-[var(--border-color)]">
+                        <h3 class="text-lg mb-2">Transmission</h3>
+                        <p class="text-sm">Constructs a packed C struct in memory and hands it directly to
+                            <code>esp_wifi_80211_tx()</code> &mdash; the ESP-IDF function that bypasses the entire Wi-Fi
+                            stack and injects raw bytes into the radio hardware.
+                        </p>
+                    </div>
+                    <div class="p-8 border-b sm:border-b-0 sm:border-r border-[var(--border-color)]">
+                        <h3 class="text-lg mb-2">Reception</h3>
+                        <p class="text-sm">Promiscuous mode captures every 802.11 frame on the channel. A fast
+                            <code>IRAM_ATTR</code> callback filters by frame control, category, and OUI &mdash; three
+                            memory checks before touching the payload.
+                        </p>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-lg mb-2">Thread Safety</h3>
+                        <p class="text-sm">The promiscuous callback runs on the Wi-Fi task. Blocking it triggers
+                            Watchdog Timer panics. We use <code>xQueueSendFromISR()</code> to safely bridge the
+                            high-priority radio context to your <code>loop()</code>.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 02. THE FRAME -->
+            <section id="frame">
+                <h2 class="text-3xl mb-6">02. The Frame</h2>
+                <p class="mb-6 max-w-2xl">
+                    GHOSTWAVES uses <strong>Vendor-Specific Action Frames</strong> &mdash; a legitimate 802.11
+                    management
+                    frame type (subtype 0x0D, frame control <code>0x00D0</code>). Category <code>0x7F</code> marks the
+                    body as vendor-specific, followed by a 3-byte OUI that acts as a namespace. Our OUI is
+                    <code>0xBE 0xEF 0x00</code> &mdash; the magic bytes.
+                </p>
+
+                <!-- Frame anatomy bar -->
+                <div class="border-sharp overflow-x-auto mb-8">
+                    <div class="flex min-w-[700px]">
+                        <div class="frame-seg" style="flex:2">FC<span class="bytes">2B</span></div>
+                        <div class="frame-seg" style="flex:2">DUR<span class="bytes">2B</span></div>
+                        <div class="frame-seg" style="flex:6">DEST MAC<span class="bytes">6B</span></div>
+                        <div class="frame-seg" style="flex:6">SRC MAC<span class="bytes">6B</span></div>
+                        <div class="frame-seg" style="flex:6">BSSID<span class="bytes">6B</span></div>
+                        <div class="frame-seg" style="flex:2">SEQ<span class="bytes">2B</span></div>
+                        <div class="frame-seg" style="flex:1">CAT<span class="bytes">1B</span></div>
+                        <div class="frame-seg" style="flex:3">OUI<span class="bytes">3B</span></div>
+                        <div class="frame-seg" style="flex:1.5">TYPE<span class="bytes">1B</span></div>
+                        <div class="frame-seg" style="flex:12">YOUR PAYLOAD<span class="bytes">0-230B</span></div>
+                    </div>
+                </div>
+
+                <div class="border-sharp p-8 bg-[var(--code-bg)]">
+                    <p class="text-sm font-bold uppercase tracking-widest mb-4">Reading the frame:</p>
+                    <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
+                        <div>
+                            <p><strong>FC: 0x00D0</strong> &mdash; "I am an Action Frame"</p>
+                            <p><strong>DEST/SRC/BSSID</strong> &mdash; Who, from whom, where</p>
+                            <p><strong>CAT: 0x7F</strong> &mdash; "I am Vendor-Specific"</p>
+                        </div>
+                        <div>
+                            <p><strong>OUI: BE:EF:00</strong> &mdash; "I am a Ghost"</p>
+                            <p><strong>TYPE: 0x01-0xFF</strong> &mdash; Your custom frame type</p>
+                            <p><strong>PAYLOAD</strong> &mdash; Your data. Raw. Unfiltered.</p>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 03. CHANNELS & FREQUENCIES -->
+            <section id="channels">
+                <h2 class="text-3xl mb-6">03. Channels &amp; Frequencies</h2>
+                <p class="mb-6 max-w-2xl">
+                    When you call <code>GhostWaves.begin(6)</code>, you select <strong>Wi-Fi Channel 6</strong>.
+                    The ESP32 is a Wi-Fi chip, not a software-defined radio &mdash; you pick a channel number,
+                    and the hardware maps it to a fixed center frequency defined by the 802.11 standard.
+                    All nodes must be on the same channel to communicate.
+                </p>
+
+                <table class="mb-8">
+                    <thead>
+                        <tr>
+                            <th>Channel</th>
+                            <th>Frequency</th>
+                            <th>Channel</th>
+                            <th>Frequency</th>
+                            <th>Channel</th>
+                            <th>Frequency</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-mono">1</td>
+                            <td>2.412 GHz</td>
+                            <td class="font-mono">6</td>
+                            <td>2.437 GHz</td>
+                            <td class="font-mono">11</td>
+                            <td>2.462 GHz</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">2</td>
+                            <td>2.417 GHz</td>
+                            <td class="font-mono">7</td>
+                            <td>2.442 GHz</td>
+                            <td class="font-mono">12</td>
+                            <td>2.467 GHz</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">3</td>
+                            <td>2.422 GHz</td>
+                            <td class="font-mono">8</td>
+                            <td>2.447 GHz</td>
+                            <td class="font-mono">13</td>
+                            <td>2.472 GHz</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">4</td>
+                            <td>2.427 GHz</td>
+                            <td class="font-mono">9</td>
+                            <td>2.452 GHz</td>
+                            <td colspan="2" class="opacity-50 text-sm">Ch 14 (Japan) not available</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">5</td>
+                            <td>2.432 GHz</td>
+                            <td class="font-mono">10</td>
+                            <td>2.457 GHz</td>
+                            <td colspan="2"></td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="grid grid-cols-1 sm:grid-cols-3 gap-0 border-sharp mb-8">
+                    <div class="p-8 border-b sm:border-b-0 sm:border-r border-[var(--border-color)]">
+                        <h3 class="text-lg mb-2">Overlap</h3>
+                        <p class="text-sm">Each channel is 22 MHz wide, spaced 5 MHz apart &mdash; they overlap.
+                            Channels <strong>1, 6, and 11</strong> are the only three that don't overlap at all.
+                            Pick one of these for best results.</p>
+                    </div>
+                    <div class="p-8 border-b sm:border-b-0 sm:border-r border-[var(--border-color)]">
+                        <h3 class="text-lg mb-2">Interference</h3>
+                        <p class="text-sm">Your home router sits on one of these channels. Every neighbor's router too.
+                            Put GHOSTWAVES on a different channel to avoid noise. Or use
+                            <code>scanQuietestChannel()</code> to find it automatically.</p>
+                    </div>
+                    <div class="p-8">
+                        <h3 class="text-lg mb-2">Channel Hopping</h3>
+                        <p class="text-sm"><code>setChannel()</code> retunes the radio instantly &mdash; no restart, no
+                            re-initialization. Broadcast a HOP command on the current channel, then switch. The entire
+                            swarm migrates together.</p>
+                    </div>
+                </div>
+
+                <h3 class="text-lg mb-4 font-bold border-l-4 border-[var(--border-color)] pl-4">Live Channel Switch</h3>
+                <pre><code>// Start on channel 6
+GhostWaves.begin(6);
+
+// Later: scan for the quietest channel
+uint8_t best = GhostWaves.scanQuietestChannel(100);  // 100ms dwell per channel
+Serial.printf("Quietest channel: %d\n", best);
+
+// Retune instantly — no restart needed
+GhostWaves.setChannel(best);
+
+// Check where we are
+Serial.printf("Now on channel %d\n", GhostWaves.getChannel());</code></pre>
+
+                <h3 class="text-lg mt-12 mb-4 font-bold border-l-4 border-[var(--border-color)] pl-4">Coordinated
+                    Migration</h3>
+                <p class="text-sm mb-4 opacity-70">A Leader node scans, picks the best channel, broadcasts a HOP
+                    command, then switches itself. Followers listen for the HOP command and follow. See the
+                    <strong>GhostHop</strong> example for the full implementation.</p>
+                <pre><code>// Leader: broadcast HOP command, then switch
+#define GHOST_TYPE_HOP 0xF0
+
+struct __attribute__((packed)) HopCommand {
+  uint8_t new_channel;
+  uint8_t reason;
+};
+
+HopCommand cmd = { .new_channel = best, .reason = 0 };
+GhostWaves.send(broadcast, (const uint8_t*)&amp;cmd, sizeof(cmd), GHOST_TYPE_HOP);
+delay(20);
+GhostWaves.setChannel(best);
+
+// Follower: listen and follow
+if (pkt.oui_type == GHOST_TYPE_HOP) {
+  HopCommand* cmd = (HopCommand*)pkt.payload;
+  GhostWaves.setChannel(cmd->new_channel);
+}</code></pre>
+            </section>
+
+            <!-- 04. API REFERENCE -->
+            <section id="api">
+                <h2 class="text-3xl mb-6">04. API Reference</h2>
+                <p class="mb-6 max-w-2xl">
+                    GHOSTWAVES exposes a singleton <code>GhostWaves</code> (like <code>Serial</code> or
+                    <code>Wire</code>) with a minimal, deliberate API.
+                </p>
+                <div class="space-y-6">
+                    <div class="border-sharp p-6">
+                        <code class="block text-lg font-bold">bool begin(uint8_t channel)</code>
+                        <p class="text-sm mt-2 opacity-70">Initialize the radio on a Wi-Fi channel (1&ndash;13). Sets
+                            station mode, enables promiscuous capture, and creates the receive queue. All devices must
+                            share the same channel to communicate.</p>
+                    </div>
+                    <div class="border-sharp p-6">
+                        <code
+                            class="block text-lg font-bold">bool send(const uint8_t* dest_mac, const uint8_t* payload, size_t len, uint8_t oui_type)</code>
+                        <p class="text-sm mt-2 opacity-70">Construct and transmit a Ghost Frame.
+                            <code>dest_mac</code> is 6 bytes (use <code>FF:FF:FF:FF:FF:FF</code> for broadcast).
+                            <code>payload</code> is your raw data (up to 230 bytes). <code>oui_type</code> tags the
+                            frame type (defaults to <code>0x01</code>). Returns <code>true</code> on success.
+                        </p>
+                    </div>
+                    <div class="border-sharp p-6">
+                        <code class="block text-lg font-bold">bool setChannel(uint8_t channel)</code>
+                        <p class="text-sm mt-2 opacity-70">Retune the radio to a new channel (1&ndash;13) on the fly.
+                            No restart, no re-initialization. Both TX and RX switch instantly.
+                            Returns <code>false</code> if the channel is out of range.</p>
+                    </div>
+                    <div class="border-sharp p-6">
+                        <code class="block text-lg font-bold">uint8_t getChannel()</code>
+                        <p class="text-sm mt-2 opacity-70">Returns the current channel number.</p>
+                    </div>
+                    <div class="border-sharp p-6">
+                        <code
+                            class="block text-lg font-bold">uint8_t scanQuietestChannel(uint16_t dwell_ms = 50)</code>
+                        <p class="text-sm mt-2 opacity-70">Scan all 13 channels and return the one with the least
+                            traffic. Dwells on each channel for <code>dwell_ms</code> milliseconds counting all packets.
+                            Restores the original channel when done. Blocking &mdash; takes
+                            <code>~13 * dwell_ms</code> total.</p>
+                    </div>
+                    <div class="border-sharp p-6">
+                        <code class="block text-lg font-bold">bool available()</code>
+                        <p class="text-sm mt-2 opacity-70">Returns <code>true</code> if one or more Ghost Frames are
+                            waiting in the receive queue.</p>
+                    </div>
+                    <div class="border-sharp p-6">
+                        <code class="block text-lg font-bold">bool read(GhostRxPacket* packet)</code>
+                        <p class="text-sm mt-2 opacity-70">Dequeue the oldest received frame. Non-blocking &mdash;
+                            returns <code>false</code> if the queue is empty.</p>
+                    </div>
+                    <div class="border-sharp p-6">
+                        <code class="block text-lg font-bold">void end()</code>
+                        <p class="text-sm mt-2 opacity-70">Disable promiscuous mode and free the receive queue. Call
+                            before deep sleep or radio shutdown.</p>
+                    </div>
+                </div>
+
+                <h3 class="text-lg mt-12 mb-4 font-bold border-l-4 border-[var(--border-color)] pl-4">GhostRxPacket
+                    Structure</h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Field</th>
+                            <th>Type</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-mono">sender_mac</td>
+                            <td class="font-mono">uint8_t[6]</td>
+                            <td>MAC address of the transmitting node</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">oui_type</td>
+                            <td class="font-mono">uint8_t</td>
+                            <td>Custom frame type identifier (0x00&ndash;0xFF)</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">payload</td>
+                            <td class="font-mono">uint8_t[230]</td>
+                            <td>Raw payload data</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">length</td>
+                            <td class="font-mono">size_t</td>
+                            <td>Actual payload length in bytes</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">rssi</td>
+                            <td class="font-mono">int8_t</td>
+                            <td>Received signal strength in dBm (useful for distance estimation)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 05. CUSTOM FRAME TYPES -->
+            <section id="custom-types">
+                <h2 class="text-3xl mb-6">05. Custom Frame Types</h2>
+                <p class="mb-6 max-w-2xl">
+                    The <code>oui_type</code> byte is your <strong>protocol multiplexer</strong>. Define
+                    <code>0x01</code> as a heartbeat, <code>0x02</code> as sensor data, <code>0x20</code> as chat,
+                    <code>0x30</code> as relay &mdash; whatever your application needs. On receive,
+                    <code>GhostRxPacket.oui_type</code> tells you exactly what kind of frame arrived.
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-8">
+                    <div>
+                        <h4 class="text-sm font-bold mb-2">Your Protocol, Your Rules</h4>
+                        <p class="text-sm opacity-80">Think of frame types like channels within the channel. Each type
+                            can carry a completely different struct, a different meaning, a different handler. One byte
+                            gives you 256 possible message types &mdash; enough to build any protocol you can
+                            imagine.</p>
+                    </div>
+                    <div class="border-l-4 border-[var(--border-color)] pl-4">
+                        <pre class="bg-transparent border-0 p-0 text-sm"><code>// Define your protocol
+#define GHOST_TYPE_PING    0x01
+#define GHOST_TYPE_SENSOR  0x02
+#define GHOST_TYPE_CMD     0x03
+#define GHOST_TYPE_CHAT    0x20
+#define GHOST_TYPE_RELAY   0x30</code></pre>
+                    </div>
+                </div>
+
+                <pre><code>// Send with a specific type
+GhostWaves.send(dest, payload, len, GHOST_TYPE_SENSOR);
+
+// Receive and dispatch
+GhostRxPacket pkt;
+if (GhostWaves.read(&amp;pkt)) {
+  switch (pkt.oui_type) {
+    case GHOST_TYPE_PING:   handlePing(pkt);   break;
+    case GHOST_TYPE_SENSOR: handleSensor(pkt); break;
+    case GHOST_TYPE_CMD:    handleCmd(pkt);    break;
+  }
+}</code></pre>
+
+                <h3 class="text-lg mt-12 mb-4 font-bold border-l-4 border-[var(--border-color)] pl-4">Assigned Types
+                </h3>
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Type</th>
+                            <th>Name</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="font-mono">0x01</td>
+                            <td>PING</td>
+                            <td>Heartbeat / presence beacon. Default type.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">0x02</td>
+                            <td>SENSOR</td>
+                            <td>Telemetry payload. Struct-packed sensor readings.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">0x03</td>
+                            <td>CMD</td>
+                            <td>Remote command. Motor control, LED state, actuators.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">0x10</td>
+                            <td>SWARM</td>
+                            <td>Swarm beacon. Position, intent, peer discovery.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">0x20</td>
+                            <td>CHAT</td>
+                            <td>Text message. Nickname + body.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">0x30</td>
+                            <td>RELAY</td>
+                            <td>Multi-hop relay frame. TTL + deduplication.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">0xF0</td>
+                            <td>HOP</td>
+                            <td>Channel hop command. Coordinated network migration.</td>
+                        </tr>
+                        <tr>
+                            <td class="font-mono">0x40-0xEF</td>
+                            <td>USER</td>
+                            <td>Yours. Define whatever you need.</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </section>
+
+            <!-- 06. LIMITATIONS -->
+            <section id="limitations">
+                <h2 class="text-3xl mb-6">06. Limitations</h2>
+                <p class="mb-6 max-w-2xl">
+                    Bypassing the Wi-Fi stack means giving up everything it provides. These are real tradeoffs,
+                    not edge cases. Understand them before choosing GHOSTWAVES over established protocols.
+                </p>
+
+                <div class="border-sharp">
+                    <div class="p-6 border-b border-[var(--border-color)]">
+                        <p class="text-sm font-bold">No encryption.</p>
+                        <p class="text-sm opacity-70">Payloads are transmitted in plaintext. Anyone with a
+                            monitor-mode adapter on the correct channel can capture and read every byte.
+                            If you need confidentiality, you must implement your own encryption (e.g. AES
+                            over the payload before sending). The library does not do this for you.</p>
+                    </div>
+                    <div class="p-6 border-b border-[var(--border-color)]">
+                        <p class="text-sm font-bold">No delivery guarantees.</p>
+                        <p class="text-sm opacity-70">There are no ACKs, no retries, no sequence numbers.
+                            If a frame collides with another transmission, gets corrupted, or the receiver
+                            isn't listening at that moment, the data is lost. You will lose packets. For
+                            many use cases (sensor telemetry, presence beacons) this is acceptable. For
+                            others (commands, critical data) you need to build your own retry logic.</p>
+                    </div>
+                    <div class="p-6 border-b border-[var(--border-color)]">
+                        <p class="text-sm font-bold">Not actually invisible.</p>
+                        <p class="text-sm opacity-70">These frames won't appear on standard network tools or
+                            routers, but they are standard 802.11 management frames. Any device in monitor mode
+                            (Wireshark, airodump-ng, a Raspberry Pi with the right adapter) will see them.
+                            The OUI <code>0xBEEF00</code> is not registered, which makes the frames easy to
+                            identify.</p>
+                    </div>
+                    <div class="p-6 border-b border-[var(--border-color)]">
+                        <p class="text-sm font-bold">ESP32 only.</p>
+                        <p class="text-sm opacity-70">This library depends on <code>esp_wifi_80211_tx()</code>
+                            and ESP-IDF promiscuous mode APIs. It only runs on ESP32 variants (ESP32, S2, S3,
+                            C3, C6). Other platforms with monitor-mode capability can receive Ghost Frames
+                            but would need separate tooling.</p>
+                    </div>
+                    <div class="p-6 border-b border-[var(--border-color)]">
+                        <p class="text-sm font-bold">230 byte payload limit.</p>
+                        <p class="text-sm opacity-70">Action frames have a practical maximum payload of around
+                            230 bytes per frame. For larger data, you need to implement your own fragmentation
+                            and reassembly. This is not built into the library.</p>
+                    </div>
+                    <div class="p-6 border-b border-[var(--border-color)]">
+                        <p class="text-sm font-bold">Single channel at a time.</p>
+                        <p class="text-sm opacity-70">The ESP32 radio can only be tuned to one channel. You can
+                            switch channels with <code>setChannel()</code>, but during the switch you will miss
+                            frames on the old channel and the new one. Coordinated hopping (GhostHop) mitigates
+                            this but doesn't eliminate it.</p>
+                    </div>
+                    <div class="p-6">
+                        <p class="text-sm font-bold">Queue overflow under load.</p>
+                        <p class="text-sm opacity-70">The receive queue holds 10 packets. If your
+                            <code>loop()</code> doesn't drain it fast enough (heavy processing, slow serial
+                            output), incoming frames are silently dropped. In high-traffic environments
+                            this can be a real problem.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- 07. VS ESP-NOW -->
+            <section id="versus">
+                <h2 class="text-3xl mb-6">07. Ghostwaves vs ESP-NOW</h2>
+                <p class="mb-6 max-w-2xl">
+                    ESP-NOW is a mature, Espressif-maintained protocol that handles encryption, retries, and
+                    peer management for you. <strong>For most ESP32-to-ESP32 communication, ESP-NOW is the
+                    better choice.</strong> GHOSTWAVES only makes sense when you specifically need something
+                    ESP-NOW can't do.
+                </p>
+
+                <table class="mb-8">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>ESP-NOW</th>
+                            <th>GHOSTWAVES</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="text-sm font-bold">Encryption</td>
+                            <td class="text-sm">CCMP built-in</td>
+                            <td class="text-sm">None (bring your own)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-sm font-bold">Reliability</td>
+                            <td class="text-sm">ACKs + retries</td>
+                            <td class="text-sm">None (fire and forget)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-sm font-bold">Peer Management</td>
+                            <td class="text-sm">Registration required, max 20 encrypted</td>
+                            <td class="text-sm">None needed, no limit</td>
+                        </tr>
+                        <tr>
+                            <td class="text-sm font-bold">Frame Access</td>
+                            <td class="text-sm">Closed-source, fixed format</td>
+                            <td class="text-sm">Full control, every byte</td>
+                        </tr>
+                        <tr>
+                            <td class="text-sm font-bold">Multi-hop</td>
+                            <td class="text-sm">Not possible</td>
+                            <td class="text-sm">Possible (see GhostRelay)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-sm font-bold">Channel Hopping</td>
+                            <td class="text-sm">Not built-in</td>
+                            <td class="text-sm">Built-in scan + hop</td>
+                        </tr>
+                        <tr>
+                            <td class="text-sm font-bold">Protocol Versioning</td>
+                            <td class="text-sm">Not available</td>
+                            <td class="text-sm">oui_type byte (256 types)</td>
+                        </tr>
+                        <tr>
+                            <td class="text-sm font-bold">Payload</td>
+                            <td class="text-sm">250 bytes</td>
+                            <td class="text-sm">230 bytes</td>
+                        </tr>
+                        <tr>
+                            <td class="text-sm font-bold">Maintenance</td>
+                            <td class="text-sm">Espressif (battle-tested)</td>
+                            <td class="text-sm">Community / experimental</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="border-sharp p-8 bg-[var(--code-bg)]">
+                    <p class="text-sm font-bold uppercase tracking-widest mb-2">When to use which:</p>
+                    <p class="text-sm opacity-80 mb-2"><strong>Use ESP-NOW</strong> when you need reliable
+                        point-to-point communication between a known set of ESP32 devices. It handles the hard
+                        parts (encryption, retries, peer tracking) and is maintained by the chip manufacturer.</p>
+                    <p class="text-sm opacity-80"><strong>Use GHOSTWAVES</strong> when you need unlimited broadcast
+                        receivers, custom frame formats, multi-hop relay, protocol experimentation, or when
+                        you want to understand how raw 802.11 works. Accept that you'll need to handle
+                        reliability and security yourself.</p>
+                </div>
+            </section>
+
+            <!-- 08. EXAMPLES -->
+            <section id="examples">
+                <h2 class="text-3xl mb-6">08. Examples</h2>
+
+                <div class="grid grid-cols-1 gap-12">
+
+                    <!-- GhostPing -->
+                    <div>
+                        <h3 class="text-lg mb-4 font-bold border-l-4 border-[var(--border-color)] pl-4">Example:
+                            GhostPing &mdash; Multi-Type Demo</h3>
+                        <p class="text-sm mb-4 opacity-70">Basic demo. Sends pings and sensor data on different frame types,
+                            receives and dispatches by type with a switch statement. Requires 2+ ESP32s on the same channel.</p>
+                        <pre><code>#include &lt;GhostWaves.h&gt;
+
+#define GHOST_TYPE_PING    0x01
+#define GHOST_TYPE_SENSOR  0x02
+
+const uint8_t broadcast[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+unsigned long lastPing = 0;
+
+void setup() {
+  Serial.begin(115200);
+  GhostWaves.begin(6);
+  Serial.println("GhostPing active on Channel 6.");
+}
+
+void loop() {
+  // Broadcast a ping every 2 seconds
+  if (millis() - lastPing > 2000) {
+    lastPing = millis();
+    const char* msg = "alive";
+    GhostWaves.send(broadcast, (const uint8_t*)msg, strlen(msg), GHOST_TYPE_PING);
+  }
+
+  // Receive and dispatch by type
+  if (GhostWaves.available()) {
+    GhostRxPacket pkt;
+    if (GhostWaves.read(&amp;pkt)) {
+      switch (pkt.oui_type) {
+        case GHOST_TYPE_PING:
+          Serial.printf("[PING] from %02X:%02X RSSI:%d\n",
+            pkt.sender_mac[4], pkt.sender_mac[5], pkt.rssi);
+          break;
+        case GHOST_TYPE_SENSOR:
+          Serial.printf("[SENSOR] %d bytes\n", pkt.length);
+          break;
+      }
+    }
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- GhostSensor -->
+                    <div>
+                        <h3 class="text-lg mb-4 font-bold border-l-4 border-[var(--border-color)] pl-4">Example:
+                            GhostSensor &mdash; Ultra-Low-Power</h3>
+                        <p class="text-sm mb-4 opacity-70">Deep sleep pattern. Wakes, reads sensors, sends one frame,
+                            sleeps. Awake time is around 50ms depending on hardware. Useful for battery-powered nodes,
+                            though actual battery life depends on sleep interval, sensor draw, and board quiescent current.</p>
+                        <pre><code>#include &lt;GhostWaves.h&gt;
+
+#define GHOST_TYPE_SENSOR  0x02
+#define SLEEP_SECONDS      30
+
+struct __attribute__((packed)) SensorPayload {
+  uint8_t  node_id;
+  float    temperature;
+  float    humidity;
+  float    battery_voltage;
+};
+
+const uint8_t broadcast[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+
+void setup() {
+  GhostWaves.begin(6);
+
+  SensorPayload data = {
+    .node_id = 1,
+    .temperature = 23.5,
+    .humidity = 61.2,
+    .battery_voltage = 3.1
+  };
+
+  // One shot. No handshake. No ACK needed.
+  GhostWaves.send(broadcast, (const uint8_t*)&amp;data, sizeof(data), GHOST_TYPE_SENSOR);
+  delay(10);
+
+  GhostWaves.end();
+  esp_deep_sleep(SLEEP_SECONDS * 1000000ULL);
+}
+
+void loop() {
+  // Never reaches here.
+}</code></pre>
+                    </div>
+
+                    <!-- GhostSwarm -->
+                    <div>
+                        <h3 class="text-lg mb-4 font-bold border-l-4 border-[var(--border-color)] pl-4">Example:
+                            GhostSwarm &mdash; Decentralized Coordination</h3>
+                        <p class="text-sm mb-4 opacity-70">Peer discovery pattern. Each node broadcasts its state and
+                            maintains a table of nearby peers with RSSI. Peers are evicted after a timeout.
+                            No coordinator required, but also no guarantee that all peers are seen.</p>
+                        <pre><code>#include &lt;GhostWaves.h&gt;
+
+#define GHOST_TYPE_SWARM   0x10
+#define MAX_PEERS          20
+
+struct __attribute__((packed)) SwarmBeacon {
+  uint8_t node_id;
+  float   pos_x;
+  float   pos_y;
+  uint8_t state;    // 0=idle, 1=moving, 2=seeking
+};
+
+struct Peer {
+  uint8_t  node_id;
+  float    pos_x, pos_y;
+  int8_t   rssi;
+  unsigned long last_seen;
+  bool     active;
+};
+
+Peer peers[MAX_PEERS];
+const uint8_t broadcast[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+
+void setup() {
+  Serial.begin(115200);
+  GhostWaves.begin(6);
+  memset(peers, 0, sizeof(peers));
+}
+
+void loop() {
+  // Broadcast our position every 500ms
+  static unsigned long lastTx = 0;
+  if (millis() - lastTx > 500) {
+    lastTx = millis();
+    SwarmBeacon b = { .node_id = 42, .pos_x = 1.5, .pos_y = -3.2, .state = 0 };
+    GhostWaves.send(broadcast, (const uint8_t*)&amp;b, sizeof(b), GHOST_TYPE_SWARM);
+  }
+
+  // Receive peer beacons and update table
+  if (GhostWaves.available()) {
+    GhostRxPacket pkt;
+    if (GhostWaves.read(&amp;pkt) &amp;&amp; pkt.oui_type == GHOST_TYPE_SWARM) {
+      SwarmBeacon* b = (SwarmBeacon*)pkt.payload;
+      // Update peer table...
+    }
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- GhostChat -->
+                    <div>
+                        <h3 class="text-lg mb-4 font-bold border-l-4 border-[var(--border-color)] pl-4">Example:
+                            GhostChat &mdash; Invisible Messenger</h3>
+                        <p class="text-sm mb-4 opacity-70">Serial-to-air text bridge. Type in the Serial Monitor,
+                            broadcast as a raw frame. Other GhostChat nodes on the same channel print it.
+                            Messages are unencrypted and can be captured by any monitor-mode device.</p>
+                        <pre><code>#include &lt;GhostWaves.h&gt;
+
+#define GHOST_TYPE_CHAT 0x20
+
+struct __attribute__((packed)) ChatMessage {
+  char nick[8];
+  char text[200];
+};
+
+const uint8_t broadcast[6] = {0xFF, 0xFF, 0xFF, 0xFF, 0xFF, 0xFF};
+
+void loop() {
+  // Read serial input, pack into ChatMessage, send:
+  //   GhostWaves.send(broadcast, (uint8_t*)&amp;msg, len, GHOST_TYPE_CHAT);
+
+  // Receive and print:
+  if (GhostWaves.available()) {
+    GhostRxPacket pkt;
+    if (GhostWaves.read(&amp;pkt) &amp;&amp; pkt.oui_type == GHOST_TYPE_CHAT) {
+      ChatMessage* msg = (ChatMessage*)pkt.payload;
+      Serial.printf("[%s] %s\n", msg->nick, msg->text);
+    }
+  }
+}</code></pre>
+                    </div>
+
+                    <!-- GhostRelay -->
+                    <div>
+                        <h3 class="text-lg mb-4 font-bold border-l-4 border-[var(--border-color)] pl-4">Example:
+                            GhostRelay &mdash; Multi-Hop Mesh</h3>
+                        <p class="text-sm mb-4 opacity-70">Multi-hop relay with TTL and deduplication. A message
+                            propagates from node to node, decrementing its TTL at each hop. Duplicate messages
+                            are dropped via a ring buffer. This is a basic flooding approach &mdash; not a
+                            proper mesh with routing, but a starting point for extending range.</p>
+                        <pre><code>#include &lt;GhostWaves.h&gt;
+
+#define GHOST_TYPE_RELAY 0x30
+#define MAX_TTL          5
+
+struct __attribute__((packed)) RelayFrame {
+  uint16_t msg_id;
+  uint8_t  origin_mac[6];
+  uint8_t  ttl;
+  uint8_t  hop_count;
+  char     payload[180];
+};
+
+// On receive: check if already seen (ring buffer), print, decrement TTL, rebroadcast.
+// Messages ripple outward like waves on water.
+// Each node is both receiver and transmitter.
+// The network has no center.</code></pre>
+                    </div>
+
+                    <!-- GhostHop -->
+                    <div>
+                        <h3 class="text-lg mb-4 font-bold border-l-4 border-[var(--border-color)] pl-4">Example:
+                            GhostHop &mdash; Channel Hopping</h3>
+                        <p class="text-sm mb-4 opacity-70">Coordinated channel migration. A Leader node scans all 13
+                            channels, picks the quietest one, broadcasts a HOP command, and switches. Followers
+                            listen and follow. HOP commands are sent 3x for redundancy since there are no ACKs.
+                            Followers that miss the command will be stranded on the old channel.</p>
+                        <pre><code>#include &lt;GhostWaves.h&gt;
+
+#define GHOST_TYPE_HOP  0xF0
+#define HOP_INTERVAL    30000   // Scan every 30s
+
+struct __attribute__((packed)) HopCommand {
+  uint8_t new_channel;
+  uint8_t reason;
+};
+
+void loop() {
+  // LEADER: periodic scan and migrate
+  if (millis() - lastHop > HOP_INTERVAL) {
+    lastHop = millis();
+    uint8_t best = GhostWaves.scanQuietestChannel(100);
+
+    if (best != GhostWaves.getChannel()) {
+      // Broadcast HOP command 3x for reliability
+      HopCommand cmd = { .new_channel = best, .reason = 0 };
+      for (int i = 0; i &lt; 3; i++) {
+        GhostWaves.send(broadcast, (const uint8_t*)&amp;cmd, sizeof(cmd), GHOST_TYPE_HOP);
+        delay(5);
+      }
+      delay(20);
+      GhostWaves.setChannel(best);
+    }
+  }
+
+  // FOLLOWER: listen for HOP commands and follow
+  if (GhostWaves.available()) {
+    GhostRxPacket pkt;
+    if (GhostWaves.read(&amp;pkt) &amp;&amp; pkt.oui_type == GHOST_TYPE_HOP) {
+      HopCommand* cmd = (HopCommand*)pkt.payload;
+      GhostWaves.setChannel(cmd->new_channel);
+    }
+  }
+}</code></pre>
+                    </div>
+
+                </div>
+            </section>
+
+            <!-- 09. USE CASES & ROADMAP -->
+            <section id="vision">
+                <h2 class="text-3xl mb-6">09. Use Cases &amp; Roadmap</h2>
+
+                <h3 class="text-lg mb-4 font-bold border-l-4 border-[var(--border-color)] pl-4">Where It Makes
+                    Sense</h3>
+                <p class="mb-6 max-w-2xl">
+                    GHOSTWAVES is suited for scenarios where the Wi-Fi connection overhead is the bottleneck,
+                    where you need broadcast to many receivers, or where you want to define your own protocol.
+                    It's not suited for anything requiring reliability, security, or interoperability with
+                    non-ESP32 devices (without custom tooling).
+                </p>
+
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-0 border-sharp mb-12">
+                    <div class="p-8 border-b sm:border-b-0 sm:border-r border-[var(--border-color)]">
+                        <h4 class="text-sm font-bold uppercase mb-2">Art Installations</h4>
+                        <p class="text-sm opacity-80">Multiple ESP32 nodes coordinating without infrastructure.
+                            Packet loss is tolerable when the output is visual/audio and the data is continuous
+                            (sensor streams, presence beacons). The lack of setup makes rapid deployment practical.</p>
+                    </div>
+                    <div class="p-8 border-b border-[var(--border-color)]">
+                        <h4 class="text-sm font-bold uppercase mb-2">Prototyping &amp; Education</h4>
+                        <p class="text-sm opacity-80">Understanding how 802.11 works at the frame level. The library
+                            exposes every byte of the frame construction and reception process. Useful for teaching
+                            networking concepts, radio fundamentals, and embedded protocol design.</p>
+                    </div>
+                    <div class="p-8 border-b sm:border-b-0 sm:border-r border-[var(--border-color)]">
+                        <h4 class="text-sm font-bold uppercase mb-2">Sensor Collection</h4>
+                        <p class="text-sm opacity-80">Many battery-powered nodes sending readings to one receiver.
+                            The deep-sleep pattern minimizes awake time. Data loss is acceptable if readings are
+                            periodic (a missed temperature reading every few minutes is fine).</p>
+                    </div>
+                    <div class="p-8 border-b border-[var(--border-color)]">
+                        <h4 class="text-sm font-bold uppercase mb-2">Live Performance</h4>
+                        <p class="text-sm opacity-80">Wearable ESP32s with accelerometers sending gesture data.
+                            Low latency matters more than guaranteed delivery. Some dropped frames are
+                            imperceptible when data refreshes at 50Hz+. Bluetooth pairing overhead is avoided.</p>
+                    </div>
+                    <div class="p-8 border-b sm:border-b-0 sm:border-r border-[var(--border-color)]">
+                        <h4 class="text-sm font-bold uppercase mb-2">Peer Discovery</h4>
+                        <p class="text-sm opacity-80">Nodes that need to find each other without a coordinator.
+                            The swarm pattern (broadcast presence, build a peer table from RSSI) works well
+                            for local-area awareness. RSSI gives rough distance estimation, not precise positioning.</p>
+                    </div>
+                    <div class="p-8">
+                        <h4 class="text-sm font-bold uppercase mb-2">Protocol Experimentation</h4>
+                        <p class="text-sm opacity-80">Building and testing custom communication protocols.
+                            The type byte gives you 256 message types. You define the payload format, the
+                            routing rules, the reliability layer (or lack of one). The library is a foundation,
+                            not a finished product.</p>
+                    </div>
+                </div>
+
+                <h3 class="text-lg mb-4 font-bold border-l-4 border-[var(--border-color)] pl-4">Roadmap</h3>
+                <p class="mb-6 max-w-2xl">
+                    These are features that would address the current limitations. Some are straightforward,
+                    others are significant engineering efforts. No timeline &mdash; contributions welcome.
+                </p>
+                <div class="border-sharp">
+                    <div class="p-6 border-b border-[var(--border-color)] flex gap-4 items-start">
+                        <span class="font-mono font-bold text-sm opacity-40 mt-0.5">01</span>
+                        <div>
+                            <p class="text-sm font-bold">Encryption Layer</p>
+                            <p class="text-sm opacity-70">AES-128 or ChaCha20 over the payload. Bring-your-own-crypto.
+                            </p>
+                        </div>
+                    </div>
+                    <div class="p-6 border-b border-[var(--border-color)] flex gap-4 items-start">
+                        <span class="font-mono font-bold text-sm opacity-40 mt-0.5">02</span>
+                        <div>
+                            <p class="text-sm font-bold">Mesh Routing</p>
+                            <p class="text-sm opacity-70">Evolve GhostRelay into a proper mesh with route tables and
+                                path optimization.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 border-b border-[var(--border-color)] flex gap-4 items-start">
+                        <span class="font-mono font-bold text-sm opacity-40 mt-0.5">03</span>
+                        <div>
+                            <p class="text-sm font-bold">Channel Hopping <span
+                                    class="border-sharp px-2 py-0.5 text-xs ml-2 bg-[var(--fg)] text-[var(--bg)] transition-colors">DONE</span>
+                            </p>
+                            <p class="text-sm opacity-70">setChannel(), getChannel(), scanQuietestChannel() &mdash;
+                                frequency-agile communication with coordinated network migration.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 border-b border-[var(--border-color)] flex gap-4 items-start">
+                        <span class="font-mono font-bold text-sm opacity-40 mt-0.5">04</span>
+                        <div>
+                            <p class="text-sm font-bold">Acknowledgement Protocol</p>
+                            <p class="text-sm opacity-70">Optional reliability layer for when fire-and-forget isn't
+                                enough.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 border-b border-[var(--border-color)] flex gap-4 items-start">
+                        <span class="font-mono font-bold text-sm opacity-40 mt-0.5">05</span>
+                        <div>
+                            <p class="text-sm font-bold">Cross-Platform Receivers</p>
+                            <p class="text-sm opacity-70">Any device with monitor-mode capability (Linux + rtl8812au,
+                                Raspberry Pi) can receive Ghost Frames.</p>
+                        </div>
+                    </div>
+                    <div class="p-6 flex gap-4 items-start">
+                        <span class="font-mono font-bold text-sm opacity-40 mt-0.5">06</span>
+                        <div>
+                            <p class="text-sm font-bold">Frame Type Registry</p>
+                            <p class="text-sm opacity-70">A community-maintained list of oui_type assignments for
+                                interoperability.</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="mt-12 p-8 border-sharp bg-[var(--code-bg)]">
+                    <p class="text-sm opacity-80">GHOSTWAVES is a low-level tool. It gives you raw frame access and
+                        gets out of the way. What you build with it &mdash; and whether it's the right tool for
+                        your project &mdash; is up to you.</p>
+                </div>
+            </section>
+
+        </main>
+    </div>
+
+    <footer
+        class="mt-32 pt-12 border-t border-[var(--border-color)] text-xs uppercase font-bold tracking-widest flex justify-between">
+        <span>GHOSTWAVES TOOLKIT</span>
+        <span>OPT-OUT / BRUSSELS 2026</span>
+    </footer>
+
+    <script>
+        // Theme Toggling Logic
+        const themeToggleBtn = document.getElementById('theme-toggle');
+        const bodyElement = document.body;
+
+        // Check local storage for saved theme preference on load
+        const currentTheme = localStorage.getItem('ghostwaves-theme');
+        if (currentTheme === 'dark') {
+            bodyElement.classList.add('dark-mode');
+        }
+
+        themeToggleBtn.addEventListener('click', () => {
+            bodyElement.classList.toggle('dark-mode');
+
+            // Save preference
+            if (bodyElement.classList.contains('dark-mode')) {
+                localStorage.setItem('ghostwaves-theme', 'dark');
+            } else {
+                localStorage.setItem('ghostwaves-theme', 'light');
+            }
+        });
+    </script>
+
+</body>
+
+</html>

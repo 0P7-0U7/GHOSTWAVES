@@ -1,0 +1,37 @@
+#######################################
+# Syntax Coloring Map for GhostWaves
+#######################################
+
+#######################################
+# Datatypes & Classes (KEYWORD1)
+#######################################
+
+GhostWaves	KEYWORD1
+GhostWavesClass	KEYWORD1
+GhostRxPacket	KEYWORD1
+GhostMacHeader	KEYWORD1
+GhostActionBody	KEYWORD1
+GhostFrame	KEYWORD1
+
+#######################################
+# Methods & Functions (KEYWORD2)
+#######################################
+
+begin	KEYWORD2
+send	KEYWORD2
+setChannel	KEYWORD2
+getChannel	KEYWORD2
+scanQuietestChannel	KEYWORD2
+available	KEYWORD2
+read	KEYWORD2
+end	KEYWORD2
+
+#######################################
+# Constants (LITERAL1)
+#######################################
+
+GHOSTWAVES_MAX_PAYLOAD	LITERAL1
+GHOSTWAVES_DEFAULT_TYPE	LITERAL1
+GHOSTWAVES_MIN_CHANNEL	LITERAL1
+GHOSTWAVES_MAX_CHANNEL	LITERAL1
+GHOST_OUI	LITERAL1
