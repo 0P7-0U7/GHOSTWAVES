@@ -1,0 +1,6 @@
+# This covers any .html file in any folder (including root)
+*.html linguist-detectable=false
+*.html linguist-documentation=true
+
+# Specifically marking the docs folder as documentation
+docs/** linguist-documentation
