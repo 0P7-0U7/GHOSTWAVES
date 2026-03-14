@@ -161,12 +161,6 @@
         <div class="flex justify-between items-center mb-8 flex-wrap gap-8">
 
             <div class="flex items-center gap-8">
-                <div class="w-24 h-24 relative flex-shrink-0">
-                    <img src="../images/LOGO_LIGHT.png" id="logo-light"
-                        class="absolute inset-0 w-full h-full object-contain" alt="Light Logo">
-                    <img src="../images/LOGO_DARK.png" id="logo-dark" class="absolute inset-0 w-full h-full object-contain"
-                        alt="Dark Logo">
-                </div>
                 <h1 class="text-6xl md:text-8xl leading-none">GHOSTWAVES</h1>
             </div>
 
@@ -1241,10 +1235,8 @@ void loop() {
     </div>
 
     <footer
-        class="mt-32 pt-12 border-t border-[var(--border-color)] text-xs uppercase font-bold tracking-widest flex flex-wrap justify-between gap-4">
+        class="mt-32 pt-12 border-t border-[var(--border-color)] text-xs uppercase font-bold tracking-widest flex justify-between">
         <span>GHOSTWAVES TOOLKIT</span>
-        <a href="https://buymeacoffee.com/optoutbrussels" target="_blank"
-            class="border-sharp px-4 py-1 hover:bg-[var(--fg)] hover:text-[var(--bg)] transition-colors">Buy Me a Coffee</a>
         <span>OPT-OUT / BRUSSELS 2026</span>
     </footer>
 
@@ -1252,21 +1244,12 @@ void loop() {
         // Theme Toggling Logic
         const themeToggleBtn = document.getElementById('theme-toggle');
         const bodyElement = document.body;
-        const logoLight = document.getElementById('logo-light');
-        const logoDark = document.getElementById('logo-dark');
-
-        function updateLogos() {
-            const isDark = bodyElement.classList.contains('dark-mode');
-            if (logoLight) logoLight.style.opacity = isDark ? '0' : '1';
-            if (logoDark) logoDark.style.opacity = isDark ? '1' : '0';
-        }
 
         // Check local storage for saved theme preference on load
         const currentTheme = localStorage.getItem('ghostwaves-theme');
         if (currentTheme === 'dark') {
             bodyElement.classList.add('dark-mode');
         }
-        updateLogos();
 
         themeToggleBtn.addEventListener('click', () => {
             bodyElement.classList.toggle('dark-mode');
@@ -1277,7 +1260,6 @@ void loop() {
             } else {
                 localStorage.setItem('ghostwaves-theme', 'light');
             }
-            updateLogos();
         });
     </script>
 
